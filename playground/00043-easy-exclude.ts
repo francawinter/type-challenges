@@ -19,8 +19,8 @@
 */
 
 /* _____________ Your Code Here _____________ */
-
-type MyExclude<TUnion, UToRedact> = TUnion extends UToRedact ? never : TUnion
+// distributive conditional types
+type MyExclude<T, U> = T extends U ? never : T
 
 type Test = MyExclude<'a' | 'b' | 'c', 'a'>
 //  ^?

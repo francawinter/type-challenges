@@ -22,7 +22,33 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyAwaited<T> = any
+type MyAwaited2<T> = T extends PromiseLike<infer Inside> // Promise<infer Inside> 
+  ? Inside extends PromiseLike<infer Inside2> 
+    ? Inside2 extends PromiseLike<infer Inside3> 
+      ? Inside3
+      : Inside2
+    : Inside
+  : never
+
+type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer Inside> 
+  ? Inside extends PromiseLike<any> 
+    ? MyAwaited<Inside>
+    : Inside
+  : never
+
+// Recursion
+//
+// function recurse(x: number){
+//   if (x > 0) {
+//     recurse(x - 1)
+//     console.log(x)
+//   }
+// }
+
+// recurse(10)
+
+type TEST = MyAwaited<Promise<Promise<string | number>>>
+//    ^?
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

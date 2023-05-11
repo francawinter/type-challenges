@@ -25,6 +25,9 @@
 type Length<T extends readonly string[]> = T['length'] // array can contain different contents
 //                      ^ has to be a tuple
 
+const tuple = ['one', 'two'] as const
+const triple = ['one', 'two', 'three'] as const
+
 type Test = Length<typeof tesla>
 //    ^?
 /* _____________ Test Cases _____________ */
