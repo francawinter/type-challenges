@@ -22,12 +22,17 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Length<T> = any
+type Length<T extends readonly string[]> = T['length'] // array can contain different contents
+//                      ^ has to be a tuple
 
+type Test = Length<typeof tesla>
+//    ^?
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
 const tesla = ['tesla', 'model 3', 'model X', 'model Y'] as const
+
+
 const spaceX = ['FALCON 9', 'FALCON HEAVY', 'DRAGON', 'STARSHIP', 'HUMAN SPACEFLIGHT'] as const
 
 type cases = [

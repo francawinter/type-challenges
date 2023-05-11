@@ -22,7 +22,18 @@
 
 /* _____________ Your Code Here _____________ */
 
-type First<T extends any[]> = T[0]
+type First<T extends any[]> = T extends [] ? never : T[0] // extends => hat Überschneidungen / ist Teil von
+
+type SomeArray = [1, 2, 3]
+type Length = SomeArray['length'] // access length property of Array
+type FooArrayWithout = []
+//      ^?
+
+type Test = First<[undefined]>
+//    ^?
+
+type Testing = string extends 'someword' ? true : false
+// ^?
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

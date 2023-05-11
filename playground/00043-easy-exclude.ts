@@ -20,7 +20,14 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyExclude<T, U> = any
+type MyExclude<TUnion, UToRedact> = TUnion extends UToRedact ? never : TUnion
+
+type Test = MyExclude<'a' | 'b' | 'c', 'a'>
+//  ^?
+
+type TestA = MyExclude<'a', 'a'>
+type TestB = MyExclude<'b', 'a'>
+type TestC = MyExclude<'c', 'a'>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
