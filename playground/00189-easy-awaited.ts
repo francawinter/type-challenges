@@ -22,6 +22,52 @@
 
 /* _____________ Your Code Here _____________ */
 
+// extends interface
+interface Person {
+  name: string
+  age: number
+}
+
+interface User extends Person {
+  email: string
+}
+
+interface ToString {
+  toString(): string
+}
+
+class Person implements ToString {
+  constructor(public name: string, public age: number) { }
+
+  toString() {
+    return `${this.name} ${this.age}`
+  }
+}
+
+
+const user: User = {
+  name: 'John',
+  age: 30,
+  email: '  ',
+}
+
+// extends in generics
+
+//                      v constraint        v condition
+type ExtendsExample<T extends string> = T extends number ? true : false
+
+type ExtendsExample2<T extends string> = T
+
+let example: ExtendsExample<> = 'some string'
+
+
+
+
+// type ExtendsExample3 = T extends string
+
+type Test = ExtendsExample2<string>
+//   ^?
+
 type MyAwaited2<T> = T extends PromiseLike<infer Inside> // Promise<infer Inside> 
   ? Inside extends PromiseLike<infer Inside2> 
     ? Inside2 extends PromiseLike<infer Inside3> 
@@ -30,11 +76,11 @@ type MyAwaited2<T> = T extends PromiseLike<infer Inside> // Promise<infer Inside
     : Inside
   : never
 
-type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer Inside> 
-  ? Inside extends PromiseLike<any> 
+type MyAwaited<T extends PromiseLike<any>> = T extends PromiseLike<infer Inside>
+  ? Inside extends PromiseLike<any>
     ? MyAwaited<Inside>
     : Inside
-  : never
+  : T
 
 // Recursion
 //

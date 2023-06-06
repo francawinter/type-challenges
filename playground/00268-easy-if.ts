@@ -19,11 +19,22 @@
 
 /* _____________ Your Code Here _____________ */
 
-type If<C, T, F> = any
+const s: String;
+
+'test'.replace('e', 'a')
+//^ string -> coerce to String
+
+type If<C extends boolean, T, F> = C extends true ? T : F
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
+/*
+`C` condition: is either `true` or `false`
+`T` if truthy; can be any type
+`F` if falsy; can be any type
+C ? T : F
+*/
 type cases = [
   Expect<Equal<If<true, 'a', 'b'>, 'a'>>,
   Expect<Equal<If<false, 'a', 2>, 2>>,
